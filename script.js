@@ -1,65 +1,107 @@
-let gamePlayed;
-let playerScore = 0;
-let computerScore = 0;
-let playerSelection;
-let winner;
-
-for (gamePlayed = 0; gamePlayed < 5; gamePlayed++) {
-    playRound();
-}
-
-if (playerScore == computerScore) {
-    alert("DRAWWWWWWW!");
-} else if (playerScore > computerScore) {
-    alert("You WIN !!!!!!")
-} else {
-    alert("You LOSEEEEEE!!!!!")
-}
-
-function playRound() {
-    playerSelection = prompt("Choose between Rock, Paper, or Scissors ...", "").toLowerCase();
-    computerSelection = getComputerChoice();
-
-    checkWinner(playerSelection, computerSelection);
-}
-
-function checkWinner(playerSelection, computerSelection) {
-    if (playerSelection == `rock` && computerSelection == `scissors`) {
-        win(playerSelection, computerSelection)
-    } else if (playerSelection == `paper` && computerSelection == `rock`) {
-        win(playerSelection, computerSelection);
-    } else if (playerSelection == `scissors` && computerSelection == `paper`) {
-        win(playerSelection, computerSelection);
-    } else if (playerSelection == computerSelection) {
-        draw(playerSelection, computerSelection);
-    } else {
-        lose(playerSelection, computerSelection);
-    }
-}
-
-function win(playerSelection, computerSelection) {
-    playerScore++;
-    alert(`You chose ${playerSelection} and computer chose ${computerSelection}. You win !. The current score is you ${playerScore} and computer ${computerScore}.`)
-}
-
-function lose(playerSelection, computerSelection) {
-    computerScore++;
-    alert(`You chose ${playerSelection} and computer chose ${computerSelection}. You lose !. The current score is you ${playerScore} and computer ${computerScore}.`)
-}
-
-function draw(playerSelection, computerSelection) {
-    alert(`You chose ${playerSelection} and computer chose ${computerSelection}. DRAW !. The current score is you ${playerScore} and computer ${computerScore}.`)
-}
+const capitalizeFirstLetter = (string) =>
+  string.charAt(0).toUpperCase() + string.slice(1);
 
 function getComputerChoice() {
-    let randNum = Math.floor(Math.random() * 3);
+  const pick = ["Rock", "Paper", "Scissors"];
+  const randomNumber = Math.floor(Math.random() * pick.length);
+  const getChoice = pick.at(randomNumber);
 
-    switch (randNum) {
-        case 0:
-            return 'rock';
-        case 1:
-            return 'paper';
-        case 2:
-            return 'scissors';
-    }
+  return getChoice.toLowerCase();
 }
+
+function getPlayerChoice() {
+  let playerPick = prompt(`Choose between Rock, Paper, Or Scissors :`, "");
+
+  // check if prompt is close or empty
+  while (playerPick === null || playerPick.trim() === "") {
+    alert("Please pick Rock, Paper, or Scissors");
+
+    return getPlayerChoice();
+  }
+
+  // Make playerPick lowercase
+  let lowerCasePlayerPick = playerPick.toLowerCase();
+
+  // check if prompt is not Rock, Paper, or Scissors
+  const validChoice = ["rock", "paper", "scissors"];
+  while (!validChoice.includes(lowerCasePlayerPick)) {
+    alert("Please enter Rock, Paper, or Scissors");
+
+    return getPlayerChoice();
+  }
+
+  return playerPick.toLowerCase();
+}
+
+function playGame() {
+  let gamePlayed = 0;
+  let playerRoundWin = 0;
+  let computerRoundWin = 0;
+  
+
+  let playRound = (playerSelection, computerSelection) => {
+    let roundWinner;
+
+    if (playerSelection === computerSelection) {
+      return (roundWinner = null);
+    } else if (playerSelection === "rock" && computerSelection === "scissors") {
+      return (roundWinner = "player");
+    } else if (playerSelection === "paper" && computerSelection === "rock") {
+      return (roundWinner = "player");
+    } else if (
+      playerSelection === "scissors" &&
+      computerSelection === "paper"
+    ) {
+      return (roundWinner = "player");
+    } else {
+      return (roundWinner = "computer");
+    }
+  };
+
+  while (gamePlayed < 5) {
+    gamePlayed++;
+
+    let playerSelection = getPlayerChoice();
+    let computerSelection = getComputerChoice();
+    let roundResult = playRound(playerSelection, computerSelection);
+
+    switch (roundResult) {
+      case "player":
+        console.log(`You ${capitalizeFirstLetter(playerSelection)} vs Computer ${capitalizeFirstLetter(computerSelection)}`)
+        console.log("Yay!, You Win!");
+        playerRoundWin++;
+        console.log(
+          `game ${gamePlayed} of 5. You ${playerRoundWin}, Computer ${computerRoundWin}`
+        );
+        break;
+      case "computer":
+        console.log(`You ${capitalizeFirstLetter(playerSelection)} vs Computer ${capitalizeFirstLetter(computerSelection)}`)
+        console.log("Oh no!, You lose :(");
+        computerRoundWin++;
+        console.log(
+          `game ${gamePlayed} of 5. You ${playerRoundWin}, Computer ${computerRoundWin}`
+        );
+        break;
+      case null:
+        console.log(`You ${capitalizeFirstLetter(playerSelection)} vs Computer ${capitalizeFirstLetter(computerSelection)}`)
+        console.log(`Opps!, It's a tie!`);
+        console.log(
+          `game ${gamePlayed} of 5. You ${playerRoundWin}, Computer ${computerRoundWin}`
+        );
+        break;
+    }
+    
+  }
+
+  let winner;
+
+  if (playerRoundWin === computerRoundWin) {
+    return (winner = `it's a Tie!, You put a good fight!`);
+  } else if (playerRoundWin < computerRoundWin) {
+    return (winner = `Oh nooo!, You lose against Computer!`);
+  } else if (playerRoundWin > computerRoundWin) {
+    return (winner = `Oh my god!, You Win Against Computer!`);
+  }
+}
+
+console.log(playGame());
