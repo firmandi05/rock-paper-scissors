@@ -1,0 +1,59 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+h1 {
+  margin-top: 20px;
+}
+
+h2 {
+  margin-top: 20px;
+}
+
+div.pick {
+  margin-top: 10px;
+}
+
+div.pick > button {
+  margin: 0 30px;
+  margin-top: 10px;
+  padding: 20px;
+  border: 0px;
+  background-color: white;
+  transition: 0.2s ease-in-out;
+  border-radius: 10px;
+}
+
+div.pick > button:hover {
+  cursor: pointer;
+  color: white;
+  background-color: black;
+  border-radius: 10px;
+}
+
+div.pick > button > p {
+  margin-top: 10px;
+}
+
+div.score {
+  margin-top: 20px;
+}
+
+div.score > h2 {
+  margin-top: 0;
+  font-weight: 100;
+}
+
+div.score > div {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+
+div.score > div > span > p:last-child {
+  margin: 0 auto;
+}

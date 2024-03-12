@@ -1,5 +1,7 @@
 const capitalizeFirstLetter = (string) =>
   string.charAt(0).toUpperCase() + string.slice(1);
+let playerSelection = getPlayerChoice();
+let computerSelection = getComputerChoice();
 
 function getComputerChoice() {
   const pick = ["Rock", "Paper", "Scissors"];
@@ -33,75 +35,18 @@ function getPlayerChoice() {
   return playerPick.toLowerCase();
 }
 
-function playGame() {
-  let gamePlayed = 0;
-  let playerRoundWin = 0;
-  let computerRoundWin = 0;
-  
-
-  let playRound = (playerSelection, computerSelection) => {
-    let roundWinner;
-
-    if (playerSelection === computerSelection) {
-      return (roundWinner = null);
-    } else if (playerSelection === "rock" && computerSelection === "scissors") {
-      return (roundWinner = "player");
-    } else if (playerSelection === "paper" && computerSelection === "rock") {
-      return (roundWinner = "player");
-    } else if (
-      playerSelection === "scissors" &&
-      computerSelection === "paper"
-    ) {
-      return (roundWinner = "player");
-    } else {
-      return (roundWinner = "computer");
-    }
-  };
-
-  while (gamePlayed < 5) {
-    gamePlayed++;
-
-    let playerSelection = getPlayerChoice();
-    let computerSelection = getComputerChoice();
-    let roundResult = playRound(playerSelection, computerSelection);
-
-    switch (roundResult) {
-      case "player":
-        console.log(`You ${capitalizeFirstLetter(playerSelection)} vs Computer ${capitalizeFirstLetter(computerSelection)}`)
-        console.log("Yay!, You Win!");
-        playerRoundWin++;
-        console.log(
-          `game ${gamePlayed} of 5. You ${playerRoundWin}, Computer ${computerRoundWin}`
-        );
-        break;
-      case "computer":
-        console.log(`You ${capitalizeFirstLetter(playerSelection)} vs Computer ${capitalizeFirstLetter(computerSelection)}`)
-        console.log("Oh no!, You lose :(");
-        computerRoundWin++;
-        console.log(
-          `game ${gamePlayed} of 5. You ${playerRoundWin}, Computer ${computerRoundWin}`
-        );
-        break;
-      case null:
-        console.log(`You ${capitalizeFirstLetter(playerSelection)} vs Computer ${capitalizeFirstLetter(computerSelection)}`)
-        console.log(`Opps!, It's a tie!`);
-        console.log(
-          `game ${gamePlayed} of 5. You ${playerRoundWin}, Computer ${computerRoundWin}`
-        );
-        break;
-    }
-    
-  }
-
-  let winner;
-
-  if (playerRoundWin === computerRoundWin) {
-    return (winner = `it's a Tie!, You put a good fight!`);
-  } else if (playerRoundWin < computerRoundWin) {
-    return (winner = `Oh nooo!, You lose against Computer!`);
-  } else if (playerRoundWin > computerRoundWin) {
-    return (winner = `Oh my god!, You Win Against Computer!`);
+function playRound(player, computer) {
+  if (player === computer) {
+    return `You chose ${capitalizeFirstLetter(player)}. Computer chose ${capitalizeFirstLetter(computer)}. It's a tie!`;
+  } else if (player === "rock" && computer === "scissors") {
+    return `You chose ${capitalizeFirstLetter(player)}. Computer chose ${capitalizeFirstLetter(computer)}. Oh my god!! You win!`;
+  }else if (player === "paper" && computer === "rock") {
+    return `You chose ${capitalizeFirstLetter(player)}. Computer chose ${capitalizeFirstLetter(computer)}. Oh my god!! You win!`;
+  }else if (player === "scissors" && computer === "paper") {
+    return `You chose ${capitalizeFirstLetter(player)}. Computer chose ${capitalizeFirstLetter(computer)}. Oh my god!! You win!`;
+  } else {
+    return `You chose ${capitalizeFirstLetter(player)}. Computer chose ${capitalizeFirstLetter(computer)}. Oh no!, You lose!`
   }
 }
 
-console.log(playGame());
+console.log(playRound(playerSelection, computerSelection));
